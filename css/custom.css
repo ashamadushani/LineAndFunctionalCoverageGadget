@@ -5,7 +5,7 @@ body {
 }
 
 .sidebarInside{
-    max-height:500px !important;
+    max-height:250px !important;
     overflow:hidden;
     overflow-y:auto;
     font-size:0.8vw !important;
@@ -26,14 +26,11 @@ body {
     font-size:0.8vw !important;
 }
 
-.mam-light-issues{
-    color:#fff!important;
-    background-color:#FF9933!important;
-}
 
-.mam-light-sonar{
-    color:#fff!important;
-    background-color:#206898!important
+
+.mam-light{
+    color:#000!important;
+    background-color:#dae1e8!important
 }
 
 .mam-container{
@@ -44,14 +41,14 @@ body {
     box-shadow:0 2px 5px 0 rgba(0,0,0,0.2),0 2px 10px 0 rgba(0,0,0,0.19);
     background-color:#FFFFFF
 }
-.btn-component{
+.btn-product{
     color:#000000;
 }
-.btn-component-active{
+.btn-product-active{
     background:#a1bdcc;
     font-weight:bold;
 }
-.btn-component-inactive{
+.btn-product-inactive{
     background:#d9edf7;
 }
 .fixedIssesDiv{

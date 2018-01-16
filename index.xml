@@ -25,7 +25,6 @@
     <link href='css/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
     <link href="/portal/store/carbon.super/fs/gadget/line_and_functional_coverage/css/custom.css" rel="stylesheet"/>
 </head>
-
 <body>
 <div class="container-fluid">
     <div class="row" style="padding:10 15 0 15">
@@ -35,13 +34,13 @@
                 <div class="col-xs-6">
                     <div class="row">
                         <div class="col-xs-2"><div style="background-color:#00A388; height:1vw; width:0.9vw;"></div></div>
-                        <div class="col-xs-9"><p style="font-size: 0.8vw">Line Coverage</p></div>
+                        <div class="col-xs-9"><p style="font-size: 0.8vw">Line Coverage(%)</p></div>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <div class="row">
                         <div class="col-xs-2"><div style="background-color:#206898; height:1vw; width:0.9vw;"></div></div>
-                        <div class="col-xs-9"><p style="font-size: 0.8vw"style="">Functional Coverage</p></div>
+                        <div class="col-xs-9"><p style="font-size: 0.8vw"style="">Functional Coverage(%)</p></div>
                     </div>
                 </div>
             </div>
@@ -55,7 +54,7 @@
             <div id="" class="row">
                 <div class=" col-xs-12 col-md-12">
                     <div class="container-fluid" >
-                        <div class="row" >
+                        <div class="row" style="padding:15px 0px 15px 0px;">
                             <div class="mam-card col-xs-6">
                                 <div id="line-coverage-bar" style="min-width: 320px; max-width: auto; margin: 0 auto"></div>
                             </div>
@@ -63,7 +62,7 @@
                                 <div id="functional-coverage-bar" style="min-width: 320px; max-width: auto; margin: 0 auto"></div>
                             </div>
                         </div>
-                        <div class="row" >
+                        <div class="row" style="padding:15px 0px 15px 0px;">
                             <div class="mam-card col-xs-6">
                                 <div id="line-coverage-container" style="height: 400px; min-width: 320px; max-width: auto; margin: 0 auto"></div>
                             </div>
@@ -75,7 +74,7 @@
                         <div class="row" style="padding:15px 0px 15px 0px;">
                             <div class="col-xs-12" style="">
                                 <div class="mam-card">
-                                    <header class="mam-light-sonar" id="trend-graph-header">
+                                    <header class="mam-light" id="trend-graph-header">
                                         <div class="row" style="margin:0px 3px 0px 3px">
                                             <div class="col-xs-4">
                                                 <h4 style="font-size:1vw" style="font-size:1vw">Historical Trend</h4>
@@ -87,7 +86,7 @@
                                                         <p style="text-align: right; margin-top:10px">Select a Date Range:</p>
                                                     </div>
                                                     <div class="col-xs-5" style="margin-top:5px; margin-right:0px;margin-left:0px">
-                                                        <label class="pull-right" id="sonar-calender" style="padding:5px 20px 5px 20px; background: #fff;color:#000 ;cursor: pointer; #ccc;">
+                                                        <label class="pull-right" id="coverage-calender" style="padding:5px 20px 5px 20px; background: #fff;color:#000 ;cursor: pointer; #ccc;">
                                                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
                                                             <span></span> <b class="caret"></b>
                                                         </label>
@@ -100,15 +99,15 @@
                                         <div class="container-fluid" >
                                             <div class="row" style="padding-left:0;">
                                                 <div class="btn-group pull-right" role="group" style="margin-top:10px; margin-right:20px;">
-                                                    <button id="dailyBtnSonar" type="button" class="btn btn-default" >Day</button>
-                                                    <button id="monthlyBtnSonar" type="button" class="btn btn-default" >Month</button>
-                                                    <button id="quarterlyBtnSonar" type="button" class="btn btn-default" >Quarter</button>
-                                                    <button id="yearlyBtnSonar" type="button" class="btn btn-default" >Year</button>
+                                                    <button id="dailyBtn" type="button" class="btn btn-default" >Day</button>
+                                                    <button id="monthlyBtn" type="button" class="btn btn-default" >Month</button>
+                                                    <button id="quarterlyBtn" type="button" class="btn btn-default" >Quarter</button>
+                                                    <button id="yearlyBtn" type="button" class="btn btn-default" >Year</button>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-12">
-                                                    <div id="trend-chart-container-sonar" style="min-width: auto; max-width: auto; height: 375px; margin: 0 auto"></div>
+                                                    <div id="trend-chart-container" style="min-width: auto; max-width: auto; height: 375px; margin: 0 auto"></div>
                                                 </div>
                                             </div>
                                         </div>

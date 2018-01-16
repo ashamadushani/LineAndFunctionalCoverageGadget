@@ -4,12 +4,12 @@ $(window).on('load', function() {
 
 $(".right-scrolling-body").scroll(function() {
   $(".daterangepicker").hide();
-  $('#sonar-calender').blur();
+  $('#coverage-calender').blur();
 });
 
 $(window).resize(function() {
   $(".daterangepicker").hide();
-  $('#sonar-calender').blur();
+  $('#coverage-calender').blur();
 });
 
 
@@ -21,10 +21,10 @@ var endDate = end.format('YYYY-MM-DD');
 $(function() {
 
     function cb(start, end) {
-        $('#sonar-calender span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        $('#coverage-calender span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
 
-    $('#sonar-calender').daterangepicker({
+    $('#coverage-calender').daterangepicker({
         startDate: start,
         endDate: end,
         ranges: {
@@ -39,50 +39,30 @@ $(function() {
 
     cb(start, end);
 
-    function cd(start, end) {
-        $('#issue-calender span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-
-    $('#issue-calender').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-            <!--'Today': [moment(), moment()],-->
-            <!--'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],-->
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-    }, cd);
-
-    cd(start, end);
-
 });
 
 
-$('#dailyBtnSonar').click(function(){
-    getSonarTrendLineHistory("day");
+$('#dailyBtn').click(function(){
+    getTrendLineHistory("day");
 });
-$('#monthlyBtnSonar').click(function(){
-    getSonarTrendLineHistory("Month");
+$('#monthlyBtn').click(function(){
+    getTrendLineHistory("Month");
 });
-$('#quarterlyBtnSonar').click(function(){
-    getSonarTrendLineHistory("Quarter");
+$('#quarterlyBtn').click(function(){
+    getTrendLineHistory("Quarter");
 });
-$('#yearlyBtnSonar').click(function(){
-    getSonarTrendLineHistory("Year");
+$('#yearlyBtn').click(function(){
+    getTrendLineHistory("Year");
 });
 
 $('#resetView').click(function(){
     resetDashboardView();
 });
 
-$('#sonar-calender').on('apply.daterangepicker', function(ev, picker) {
+$('#coverage-calender').on('apply.daterangepicker', function(ev, picker) {
 
     startDate = picker.startDate.format('YYYY-MM-DD');
     endDate = picker.endDate.format('YYYY-MM-DD');
-    setSonarDate(startDate, endDate);
-    <!--setSonarCalender();-->
-    getSonarTrendLineHistory("day");
+    setSelectionDate(startDate, endDate);
+    getTrendLineHistory("day");
 });
