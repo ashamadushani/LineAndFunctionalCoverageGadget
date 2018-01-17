@@ -1,18 +1,20 @@
 //var baseUrl='https://digitalops.services.wso2.com:9092/';
-var baseUrl='https://localhost:9092/';
+var baseUrl='https://10.100.4.8:9092/';
 
 var selectedStartDate;
 var selectedEndDate;
 
-var formatColor;
-
 var currentLineCoverageFormat;
+var currentLineCoverageSubTitle;
 var currentLineCoverageXData;
 var currentLineCoverageYData;
+var currentLineCoverageColor;
 
 var currentFunctionalCoverageFormat;
+var currentFunctionalCoverageSubTitle;
 var currentFunctionalCoverageXData;
 var currentFunctionalCoverageYData;
+var currentFunctionalCoverageColor;
 
 var currentLineCoverageItemsTitle;
 var currentLineCoverageItemsXData;
@@ -212,9 +214,25 @@ function initCoverageCharts() {
                 var name = itemsData[i].name;
                 var id = itemsData[i].id;
                 var lcy = parseFloat((itemsData[i].lc.line_coverage).toFixed(2));
+                var lcColor;
+                var fcColor;
+                if(lcy<50){
+                    lcColor='#ff424b';
+                }else if(lcy>=50 && lcy<80){
+                    lcColor='#ffff33';
+                }else if(lcy>=80){
+                    lcColor='#2eb82e';
+                }
                 var fcy = parseFloat((itemsData[i].fc.functional_coverage).toFixed(2));
-                lineCoverageChartYData.push([name,lcy]);
-                funcCoverageChartYData.push([name,fcy]);
+                if(fcy<50){
+                    fcColor='#ff424b';
+                }else if(fcy>=50 && fcy<80){
+                    fcColor='#ffff33';
+                }else if(fcy>=80){
+                    fcColor='#2eb82e';
+                }
+                lineCoverageChartYData.push({name:name,y:lcy,color:lcColor});
+                funcCoverageChartYData.push({name:name,y:fcy,color:fcColor});
                 if(itemsData[i].lc.lines_to_cover === 0){
                     lineCoverageChartXData.push([name,0]);
                 }else{
@@ -243,7 +261,15 @@ function initCoverageCharts() {
                 var name=lcItemsData[i].name;
                 var id=lcItemsData[i].id;
                 var lcy=parseFloat((lcItemsData[i].lc.line_coverage).toFixed(2));
-                lineCoverageChartYData.push([name,lcy]);
+                var lcColor;
+                if(lcy<50){
+                    lcColor='#ff424b';
+                }else if(lcy>=50 && lcy<80){
+                    lcColor='#ffff33';
+                }else if(lcy>=80){
+                    lcColor='#2eb82e';
+                }
+                lineCoverageChartYData.push({name:name,y:lcy,color:lcColor});
                 if(lcItemsData[i].lc.lines_to_cover === 0){
                     lineCoverageChartXData.push([name,0]);
                 }else{
@@ -262,8 +288,16 @@ function initCoverageCharts() {
             for(var i = 0; i < fcItemsData.length; i++){
                 var name=fcItemsData[i].name;
                 var id=fcItemsData[i].id;
-                var lcy=parseFloat((fcItemsData[i].fc.functional_coverage).toFixed(2));
-                funcCoverageChartYData.push([name,fcy]);
+                var fcy=parseFloat((fcItemsData[i].fc.functional_coverage).toFixed(2));
+                var fcColor;
+                if(fcy<50){
+                    fcColor='#ff424b';
+                }else if(fcy>=50 && fcy<80){
+                    fcColor='#ffff33';
+                }else if(fcy>=80){
+                    fcColor='#2eb82e';
+                }
+                funcCoverageChartYData.push({name:name,y:fcy,color:fcColor});
                 if(fcItemsData[i].fc.total_features=== 0){
                     funcCoverageChartXData.push([name,0]);
                 }else{
@@ -279,27 +313,41 @@ function initCoverageCharts() {
     currentFuncCoverageItemsYData=funcCoverageChartYData;
     currentFuncCoverageItemsXData=funcCoverageChartXData;
     if(currentData.line_cov.lines_to_cover=== 0){
-        lcformatColor='black';
         currentLineCoverageFormat='Line Coverage undefined.';
         currentLineCoverageYData=[0];
         currentLineCoverageXData=[0];
     }else{
-        lcformatColor='white';
-        currentLineCoverageFormat=currentData.line_cov.uncovered_lines+'/'+currentData.line_cov.lines_to_cover;
-        lineCoverageBarData.push(parseFloat((currentData.line_cov.line_coverage).toFixed(2)));
+        currentLineCoverageFormat='';
+        currentLineCoverageSubTitle=currentData.line_cov.covered_lines+' / '+currentData.line_cov.lines_to_cover;
+        var lcy=parseFloat((currentData.line_cov.line_coverage).toFixed(2));
+        lineCoverageBarData.push(lcy);
+        if(lcy<50){
+            currentLineCoverageColor='#ff424b';
+        }else if(lcy>=50 && lcy<80){
+            currentLineCoverageColor='#ffff33';
+        }else if(lcy>=80){
+            currentLineCoverageColor='#2eb82e';
+        }
         currentLineCoverageXData=[100];
         currentLineCoverageYData=lineCoverageBarData;
     }
 
     if(currentData.func_cov.total_features=== 0){
-        fcformatColor='black';
         currentFunctionalCoverageFormat='Functional Coverage undefined.';
         currentFunctionalCoverageXData=[0];
         currentFunctionalCoverageYData=[0];
     }else{
-        fcformatColor='white';
-        currentFunctionalCoverageFormat=currentData.func_cov.total_features-currentData.func_cov.passed_features +'/'+currentData.func_cov.total_features;
-        funcCoverageBarData.push(parseFloat((currentData.func_cov.functional_coverage).toFixed(2)));
+        currentFunctionalCoverageFormat='';
+        currentFunctionalCoverageSubTitle=currentData.func_cov.passed_features +' / '+currentData.func_cov.total_features;
+        var fcy=parseFloat((currentData.func_cov.functional_coverage).toFixed(2));
+        funcCoverageBarData.push(fcy);
+        if(fcy<50){
+            currentFunctionalCoverageColor='#ff424b';
+        }else if(fcy>=50 && fcy<80){
+            currentFunctionalCoverageColor='#ffff33';
+        }else if(fcy>=80){
+            currentFunctionalCoverageColor='#2eb82e';
+        }
         currentFunctionalCoverageXData=[100];
         currentFunctionalCoverageYData=funcCoverageBarData;
     }
@@ -362,7 +410,7 @@ function createLineCoverageBar(){
         },
         subtitle:{
             align: 'right',
-            text:'Total:12300'
+            text:currentLineCoverageSubTitle,
         },
         chart: {
             type: 'bar',
@@ -390,7 +438,7 @@ function createLineCoverageBar(){
             animation: false,
             enableMouseTracking: false,
             showInLegend: false,
-            color: '#dbdddd',
+            color: '#DBDDDD',
             pointWidth: 30,
             borderWidth: 0,
             borderRadiusTopLeft: '4px',
@@ -399,7 +447,7 @@ function createLineCoverageBar(){
             borderRadiusBottomRight: '4px',
             dataLabels: {
               className: 'highlight',
-              format: '',
+              format: currentLineCoverageFormat,
               enabled: true,
               align: 'right',
               style: {
@@ -410,9 +458,9 @@ function createLineCoverageBar(){
             }, {
             enableMouseTracking: false,
             data: currentLineCoverageYData,
+            color:currentLineCoverageColor,
             borderRadiusBottomLeft: '4px',
             borderRadiusBottomRight: '4px',
-            color: '#00A388',
             borderWidth: 0,
             pointWidth: 30,
             animation: {
@@ -424,7 +472,7 @@ function createLineCoverageBar(){
               align: 'left',
               format: '{point.y}%',
               style: {
-                color: 'white',
+                color: 'black',
                 textOutline: false,
               }
             }
@@ -438,6 +486,10 @@ function createFunctionalCoverageBar(){
             text: 'Functional Coverage',
             align: 'center',
             margin: 10,
+        },
+        subtitle:{
+            align: 'right',
+            text:currentFunctionalCoverageSubTitle,
         },
         chart: {
             type: 'bar',
@@ -465,7 +517,7 @@ function createFunctionalCoverageBar(){
             animation: false,
             enableMouseTracking: false,
             showInLegend: false,
-            color: '#FF5454',
+            color: '#DBDDDD',
             pointWidth: 30,
             borderWidth: 0,
             borderRadiusTopLeft: '4px',
@@ -478,16 +530,16 @@ function createFunctionalCoverageBar(){
               enabled: true,
               align: 'right',
               style: {
-                color: fcformatColor,
+                color: 'black',
                 textOutline: false,
               }
             }
             }, {
             enableMouseTracking: false,
             data: currentFunctionalCoverageYData,
+            color:currentFunctionalCoverageColor,
             borderRadiusBottomLeft: '4px',
             borderRadiusBottomRight: '4px',
-            color: '#206898',
             borderWidth: 0,
             pointWidth: 30,
             animation: {
@@ -499,7 +551,7 @@ function createFunctionalCoverageBar(){
               align: 'left',
               format: '{point.y}%',
               style: {
-                color: 'white',
+                color: 'black',
                 textOutline: false,
               }
             }
@@ -555,7 +607,7 @@ function createLineCoverageChart(){
         animation: false,
         enableMouseTracking: false,
         showInLegend: false,
-        color: '#FF5454',
+        color: '#DBDDDD',
         pointWidth: 25,
         borderWidth: 0,
 
@@ -565,7 +617,7 @@ function createLineCoverageChart(){
           enabled: true,
           align: 'right',
           style: {
-            color: 'white',
+            color: 'black',
             textOutline: false,
           }
         }
@@ -573,7 +625,6 @@ function createLineCoverageChart(){
       	name:"Line-Coverage",
         enableMouseTracking: true,
         data: currentLineCoverageItemsYData,
-        color: '#00A388',
         borderWidth: 0,
         pointWidth: 25,
         animation: {
@@ -585,7 +636,7 @@ function createLineCoverageChart(){
           align: 'left',
           format: '{point.y}%',
           style: {
-            color: 'white',
+            color: 'black',
             textOutline: false,
           }
         }
@@ -641,7 +692,7 @@ function createFunctionalCoverageChart(){
             animation: false,
             enableMouseTracking: false,
             showInLegend: false,
-            color: '#FF5454',
+            color: '#DBDDDD',
             pointWidth: 25,
             borderWidth: 0,
 
@@ -656,10 +707,9 @@ function createFunctionalCoverageChart(){
               }
             }
             }, {
-            name:"Line-Coverage",
+            name:"Functional-Coverage",
             enableMouseTracking: true,
             data: currentFuncCoverageItemsYData,
-            color: '#206898',
             borderWidth: 0,
             pointWidth: 25,
             animation: {
@@ -671,7 +721,7 @@ function createFunctionalCoverageChart(){
               align: 'left',
               format: '{point.y}%',
               style: {
-                color: 'white',
+                color: 'black',
                 textOutline: false,
               }
             }
@@ -692,7 +742,7 @@ function createTrendChart(lcData,fcData){
             enabled: false
         },
         legend: {
-                enabled: true,
+            enabled: true,
         },
         xAxis: {
             type: 'category'
